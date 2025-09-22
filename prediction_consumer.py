@@ -1,26 +1,24 @@
 from kafka import KafkaConsumer
 import json
-import numpy as np
 
 def main():
     consumer = KafkaConsumer(
-        'guelennoc',
+        'prediction_guelennoc',
         bootstrap_servers=['nowledgeable.com:9092'],
         auto_offset_reset='earliest',
         enable_auto_commit=True,
-        group_id='json-consumer-group',
+        group_id='prediction-monitor-group',
         value_deserializer=lambda x: x.decode('utf-8') if x else None
     )
     
+    print("Monitoring predictions...")
+    
     try:
         for message in consumer:
-            data_dict = json.loads(message.value)
-            data_array = np.array(data_dict['data'])
-            total = np.sum(data_array)
-            print(f"Received: {data_dict}")
-            print(f"Sum: {total}")
+            prediction_data = json.loads(message.value)
+            print(f"Received prediction: {prediction_data['prediction']} for user {prediction_data['user_id']}")
     except KeyboardInterrupt:
-        pass
+        print("Stopping...")
     finally:
         consumer.close()
 

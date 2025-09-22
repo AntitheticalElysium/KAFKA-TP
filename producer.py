@@ -8,14 +8,14 @@ def main():
         retries=3
     )
     
-    message = "coucou guelennoc"
+    message = "hello guelennoc"
     
     try:
         future = producer.send('exo1', value=message)
         record_metadata = future.get(timeout=10)
-        print(f"Message envoyé: {message}")
+        print(f"Sent: {message}")
     except Exception as e:
-        print(f"Erreur: {e}")
+        print(f"Error: {e}")
     finally:
         producer.close()
 

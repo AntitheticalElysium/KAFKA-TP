@@ -15,9 +15,9 @@ def main():
     try:
         future = producer.send('guelennoc', value=message_json)
         record_metadata = future.get(timeout=10)
-        print(f"Envoyé: {message_json}")
+        print(f"Sent: {message_json}")
     except Exception as e:
-        print(f"Erreur: {e}")
+        print(f"Error: {e}")
     finally:
         producer.close()
 

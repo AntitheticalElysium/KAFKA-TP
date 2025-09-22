@@ -23,13 +23,13 @@ def main():
         for message in consumer:
             data_dict = json.loads(message.value)
             data_array = np.array(data_dict['data'])
-            somme = np.sum(data_array)
+            total = np.sum(data_array)
             
-            result = {"sum": int(somme)}
+            result = {"sum": int(total)}
             result_json = json.dumps(result)
             
             producer.send('processed', value=result_json)
-            print(f"Traité: {data_dict} -> {result}")
+            print(f"Processed: {data_dict} -> {result}")
             
     except KeyboardInterrupt:
         pass

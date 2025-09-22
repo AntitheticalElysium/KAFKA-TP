@@ -10,13 +10,13 @@ def main():
         value_deserializer=lambda x: x.decode('utf-8') if x else None
     )
     
-    print("Consumer démarré sur topic 'exo1'...")
+    print("Consumer started on topic 'exo1'...")
     
     try:
         for message in consumer:
             print(f"Message: {message.value}")
     except KeyboardInterrupt:
-        print("\nArrêt du consumer...")
+        print("\nStopping consumer...")
     finally:
         consumer.close()
 
