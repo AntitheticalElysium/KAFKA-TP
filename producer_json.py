@@ -1,4 +1,5 @@
 from kafka import KafkaProducer
+import json
 
 def main():
     producer = KafkaProducer(
@@ -8,12 +9,13 @@ def main():
         retries=3
     )
     
-    message = "coucou guelennoc"
+    message_data = {"data": [[1, 2], [3, 4]]}
+    message_json = json.dumps(message_data)
     
     try:
-        future = producer.send('exo1', value=message)
+        future = producer.send('guelennoc', value=message_json)
         record_metadata = future.get(timeout=10)
-        print(f"Message envoyé: {message}")
+        print(f"Envoyé: {message_json}")
     except Exception as e:
         print(f"Erreur: {e}")
     finally:
